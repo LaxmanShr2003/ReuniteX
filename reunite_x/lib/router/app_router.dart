@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:reunite_x/features/auth/view/register.dart';
 
 import '../shared/layout/app_shell.dart';
 import '../features/auth/view/login.dart';
@@ -15,7 +16,12 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/login',
       builder: (context, state) => const Login(),
+
     ),
+   GoRoute(
+  path: '/register',
+  builder: (context, state) => const OnboardingFlow(),
+),
 
     ShellRoute(
       builder: (context, state, child) {
