@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:reunite_x/features/auth/view/register.dart';
 
@@ -30,7 +29,7 @@ final GoRouter appRouter = GoRouter(
       routes: [
         GoRoute(
           path: '/map',
-          builder: (context, state) => const Feeds(),
+          builder: (context, state) => const FeedScreen(),
         ),
         GoRoute(
           path: '/attendance',

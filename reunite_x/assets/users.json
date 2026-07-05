@@ -1,0 +1,14 @@
+{
+  "users": [
+    { "id": 1, "name": "Aarav Sharma", "email": "aarav1@mail.com" },
+    { "id": 2, "name": "Sita Gurung", "email": "sita2@mail.com" },
+    { "id": 3, "name": "Ramesh Thapa", "email": "ramesh3@mail.com" },
+    { "id": 4, "name": "Anita Rai", "email": "anita4@mail.com" },
+    { "id": 5, "name": "Bikash KC", "email": "bikash5@mail.com" },
+    { "id": 6, "name": "Nabin Shrestha", "email": "nabin6@mail.com" },
+    { "id": 7, "name": "Pooja Lama", "email": "pooja7@mail.com" },
+    { "id": 8, "name": "Sunil Magar", "email": "sunil8@mail.com" },
+    { "id": 9, "name": "Kiran Adhikari", "email": "kiran9@mail.com" },
+    { "id": 10, "name": "Maya Tamang", "email": "maya10@mail.com" }
+  ]
+}
