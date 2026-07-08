@@ -1,6 +1,25 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
+
+// class ReuniteXApp extends StatelessWidget {
+//   const ReuniteXApp({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'ReuniteX',
+//       debugShowCheckedModeBanner: false,
+//       theme: ThemeData(
+//         fontFamily: 'Georgia',
+//         scaffoldBackgroundColor: const Color(0xFFEEF1F8),
+//         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0D2B6E)),
+//       ),
+//       home: const OnboardingFlow(),
+//     );
+//   }
+// }
 import 'package:reunite_x/core/validators/app_validators.dart';
 import 'package:reunite_x/core/validators/signup_validators.dart';
 import 'package:reunite_x/shared/models/SignupModel.dart';
@@ -473,6 +492,272 @@ class _PersonalIdentityStepState extends State<PersonalIdentityStep> {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: kBg,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Header
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 16,
+                ),
+                child: Center(
+                  child: const Text(
+                    'ReuniteX',
+                    style: TextStyle(
+                      color: kNavy,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              // Progress
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'STEP 1 OF\n3',
+                          style: TextStyle(
+                            color: kNavy,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        const Text(
+                          'Personal Identity',
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(4),
+                      child: LinearProgressIndicator(
+                        value: 1 / 3,
+                        minHeight: 5,
+                        backgroundColor: Colors.grey.shade300,
+                        valueColor: const AlwaysStoppedAnimation<Color>(kNavy),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 28,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Let's start with\nthe basics",
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.black,
+                        height: 1.2,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    const Text(
+                      'Provide your contact details to begin the reunification process.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black54,
+                        height: 1.5,
+                      ),
+                    ),
+                    const SizedBox(height: 28),
+                    _card(),
+                  ],
+                ),
+              ),
+              buildFooter(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _card() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        children: [
+          // Photo upload
+          Stack(
+            children: [
+              Container(
+                width: 90,
+                height: 90,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFE8EBF5),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.grey.shade400,
+                    width: 1.5,
+                    style: BorderStyle.solid,
+                  ),
+                ),
+                child: const Icon(
+                  Icons.add_a_photo_outlined,
+                  size: 30,
+                  color: Colors.grey,
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: Container(
+                  width: 26,
+                  height: 26,
+                  decoration: const BoxDecoration(
+                    color: kNavy,
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.add, size: 16, color: Colors.white),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          const Text(
+            'Upload profile photo',
+            style: TextStyle(
+              fontSize: 13,
+              color: Colors.black54,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const SizedBox(height: 28),
+          _field('Full Name', _nameCtrl, 'John Doe', TextInputType.name),
+          const SizedBox(height: 20),
+          _field(
+            'Email Address',
+            _emailCtrl,
+            'name@example.com',
+            TextInputType.emailAddress,
+          ),
+          const SizedBox(height: 20),
+          _field(
+            'Phone Number',
+            _phoneCtrl,
+            '+1 (555) 000-0000',
+            TextInputType.phone,
+          ),
+          const SizedBox(height: 28),
+          buildNavyButton('Next Step', widget.onNext),
+          const SizedBox(height: 18),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Already have an account? ',
+                style: TextStyle(fontSize: 14, color: Colors.black54),
+              ),
+              // const Text(
+              //   'Log in',
+              //   style: TextStyle(
+              //     fontSize: 14,
+              //     fontWeight: FontWeight.w700,
+              //     color: kNavy,
+              //   ),
+              // ),
+              GestureDetector(
+                onTap: () => context.go('/login'),
+                child: const Text(
+                  'Log in',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color: kNavy,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 24),
+          Row(
+            children: [
+              const Expanded(child: Divider(color: Colors.black26)),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Text(
+                  'OR SIGN UP\nWITH',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: Colors.black45,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+              ),
+              const Expanded(child: Divider(color: Colors.black26)),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _socialBtn(
+                child: Icon(
+                  Icons.image_outlined,
+                  color: Colors.black54,
+                  size: 22,
+                ),
+                color: Colors.grey.shade300,
+              ),
+              const SizedBox(width: 16),
+              _socialBtn(
+                child: const Icon(
+                  Icons.facebook,
+                  color: Colors.white,
+                  size: 24,
+                ),
+                color: const Color(0xFF1877F2),
+              ),
+              const SizedBox(width: 16),
+              _socialBtn(
+                child: const Text(
+                  'X',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.black,
+                  ),
+                ),
+                color: Colors.grey.shade200,
+              ),
+            ],
     return StepScaffold(
       header: const StepHeader(stepNumber: 1),
       content: Column(

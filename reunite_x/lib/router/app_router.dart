@@ -17,10 +17,10 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const Login(),
 
     ),
-   GoRoute(
-  path: '/register',
-  builder: (context, state) => const OnboardingFlow(),
-),
+    GoRoute(
+    path: '/register',
+    builder: (context, state) => const OnboardingFlow(),
+  ),
 
     ShellRoute(
       builder: (context, state, child) {
